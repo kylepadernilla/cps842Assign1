@@ -1,0 +1,11 @@
+1. Program inverts the index. using the cacm file we're creating two files dictionary and postings.
+
+Dictionary file contains a term and its document frequency.
+
+postings file includes document ID, term frequency in the document, and positions of all occurrences of the term in the document.
+
+stop word removal component in the 
+
+2. Program tests the inverted program.
+
+PL to use is Python.

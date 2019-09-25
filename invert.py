@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 with open('test.txt','r') as f:
     titleBool = False
     abstractBool = False
@@ -22,3 +23,11 @@ with open('test.txt','r') as f:
             for word in list:   
                 if(word == ".I"): #Checks the split line list to see if it contains the index.
                     print(list[1]) #returns the document ID.
+=======
+f = open("test.txt","r")
+lines = f.readlines()
+for i in lines:
+    thisline = i.split(" ")
+
+print(lines)
+>>>>>>> 5332e05857f1528f1e0268ecf1f4c476f2e8a79c

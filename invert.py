@@ -19,20 +19,20 @@ with open('test.txt','r') as f:
                 pubDateBool = False
                 authorBool = True
             else:
-                print(line) #returns the title.
+                print(line) #returns title/pubdate.
 
         elif(abstractBool):
             if (line.strip() == ".B"):  # Checks to see if you're finished with the abstract
                 abstractBool = False
                 pubDateBool = True
             else:
-                print(line)  # returns the title.
+                print(line)  # returns the abstract line.
 
         elif(authorBool):
-            if (line.strip() == ".N"):  # Checks to see if you're finished with the abstract
+            if (line.strip() == ".N"):  # Checks to see if you're finished with the author.
                 authorBool = False
             else:
-                print(line)  # returns the title.
+                print(line)  # returns the author.
 
         else:
             if (line.strip() == ".T"):  # Looks for Title.

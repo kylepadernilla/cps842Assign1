@@ -24,6 +24,7 @@ with open('test.txt','r') as f:
         elif(abstractBool):
             if (line.strip() == ".B"):  # Checks to see if you're finished with the abstract
                 abstractBool = False
+                pubDateBool = True
             else:
                 print(line)  # returns the title.
 

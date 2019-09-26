@@ -4,6 +4,14 @@ with open('test.txt','r') as f:
     pubDateBool = False
     authorBool = False
     for line in f:
+        if(pubDateBool):
+            if(line == ".N"):  # Checks to see if you're finished with the publication date.
+                pubDateBool = False
+            elif(line.strip() == ".A"):  # Checks to see if you're finished with the publication date.
+                pubDateBool = False
+                authorBool = True
+            else:
+                print(line)  # returns the pubDate.
         if(titleBool):
             if(line.strip() == ".B"): #Checks to see if you're finished with the title
                 titleBool = False
@@ -13,14 +21,6 @@ with open('test.txt','r') as f:
             else:
                 print(line) #returns the title
 
-        elif (pubDateBool):
-            if (line == ".N"):  # Checks to see if you're finished with the publication date.
-                pubDateBool = False
-            elif (line.strip() == ".A"):  # Checks to see if you're finished with the publication date.
-                pubDateBool = False
-                authorBool = True
-            else:
-                print(line)  # returns the pubDate.
         else:
             if(line.strip() == ".T"): #Looks for title paragraph
                 titleBool = True

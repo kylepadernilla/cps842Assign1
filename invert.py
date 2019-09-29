@@ -10,7 +10,7 @@ with open('test.txt','r') as f:
             if(line.strip() == ".B"): #Checks to see if you're finished with the title
                 titleBool = False
                 pubDateBool = True
-            elif(line.strip() == ".W"): #Checks to see if you're finished with the title
+            elif(line.strip() == ".W"): #Checks to see if you're finished with the title.
                 titleBool = False
                 abstractBool = True
             elif (line.strip() == ".N"):  # Checks to see if you're finished with the publication date.

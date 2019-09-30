@@ -22,7 +22,7 @@ with open('test.txt','r') as f:
                 print(line) #returns title/pubdate.
 
         elif(abstractBool):
-            if (line.strip() == ".B"):  # Checks to see if you're finished with the abstract
+            if (line.strip() == ".B"):  # Checks to see if you're finished with the abstrac
                 abstractBool = False
                 pubDateBool = True
             else:

@@ -1,89 +1,107 @@
-with open('test.txt','r') as f:
-    titleBool = False
-    abstractBool = False
-    pubDateBool = False
-    authorBool = False
-    punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
+import pprint
+f = open('test.txt','r')
+tB = False  #title
+wB = False  #abstract
+bB = False  #publishing date
+aB = False  #author
+nB = False  #publishing date
+punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
+identifiers = ".W .B .A .N .X "
 
-    word_dict = dict() 
-    term_para = "" #Holds the entire paragraph (Will be split into words) temporarily
-    author = "" #Holds the authors temporarily
-    pubDate = "" #Holds the publication date temporarily
-    title = "" #Holds the title temporarily
-    doc_index = "" #Holds the current document index
-    for line in f:
+word_dict = dict()
 
-        if(titleBool):
-            if(line.strip() == ".B"): #Checks to see if you're finished with the title
-                titleBool = False
-                pubDateBool = True
-                term_para = title
-            elif(line.strip() == ".W"): #Checks to see if you're finished with the title.
-                titleBool = False
-                abstractBool = True
-                term_para = title
-            elif (line.strip() == ".A"):  # Checks to see if you're finished with the publication date.
-                pubDateBool = False
-                authorBool = True
+term_para = ""
+author = ""
+pubDate = ""
+title = ""
+doc_index = ""
 
+for line in f:
+    if(tB):
+        if line.strip() in identifiers:
+            tB = False
+            term_para = title
+            if (line.strip() == ".W"):
+                wB = True
+            elif(line.strip() == ".B"):
+                bB = True
+            elif(line.strip() == ".A"):
+                aB = True
+                pubDate = "N/A"
             else:
-                title = title + line
-        
-        elif(pubDateBool):
-            if (line.strip() == ".N"):  # Checks to see if you're finished with the publication date.
-                pubDateBool = False
-
-            elif (line.strip() == ".A"):  # Checks to see if you're finished with the publication date.
-                pubDateBool = False
-                authorBool = True
-            
-            else:
-                pubDate = pubDate + line
-
-        elif(abstractBool):
-            if (line.strip() == ".B"):  # Checks to see if you're finished with the abstrac
-                abstractBool = False
-                pubDateBool = True
-            else:
-                term_para = term_para + line
-
-        elif(authorBool):
-            if (line.strip() == ".N"):  # Checks to see if you're finished with the author.
-                authorBool = False
-            else:
-                author = author + "," + line  # returns the author.
-
+                pubDate = "N/A"
+                author = "N/A"
         else:
-            if (line.strip() == ".T"):  # Looks for Title.
-                titleBool = True
+            title = title + line.strip()
 
-            else: #Really only happens on a new index.
-                
-                term_list = term_para.split()
-                counter = 0
-                for terms in term_list:
-                    no_punct = ""
-                    for char in terms:
-                        if char not in punctuations:
-                            no_punct = no_punct + char
-                    no_punct = no_punct.lower()
-                    counter = counter + 1
+    elif(wB):
+        if line.strip() in identifiers:
+            wB = False
+            if(line.strip() == ".B"):
+                bB = True
+            elif(line.strip() == ".A"):
+                aB = True
+                pubDate = "N/A"
+            else:
+                pubDate = "N/A"
+                author = "N/A"
+        else:
+            term_para = term_para + line.strip()
 
-                    
-                    doc_dict = {'Title': title, 'Term_Freq': +1, 'Position' : counter}
-                    term_dict = {doc_index : doc_dict}
+    elif(bB):
+        if line.strip() in identifiers:
+            bB = False
+            if(line.strip() == ".A"):
+                aB = True
+            else:
+                author = "N/A"
+        else:
+            pubDate = pubDate + line.strip()
 
-                #Resetting the terms for the next document to handle.
-                term_para = "" #Holds the entire paragraph (Will be split into words) temporarily
-                author = "" #Holds the authors temporarily
-                pubDate = "" #Holds the publication date temporarily
-                title = "" #Holds the title temporarily
-                doc_index = "" #Holds the current document index
-                
-                list = line.split()
-                for word in list:
-                    if(word == ".I"): #Checks the split line list to see if it contains the index.
-                        doc_index = list[1] #returns the document ID.
+    elif(aB):
+        if line.strip() in identifiers:
+            aB = False
+        else:
+            author = author + line.strip()
+    else:
+        if ".I" in line:
+            #Converts term_para to a readable list
+            no_punct =""
+            for char in term_para:
+                if char not in punctuations:
+                    no_punct = no_punct + char
+            no_punct.lower()
+            for index, terms in enumerate(no_punct.split()):
+                doc_dict = {'title':title, 'author':author, 'pub_date':pubDate, 'term_freq': 1, 'positions':[index]}
+                if terms in word_dict:
+                    if doc_index in word_dict[terms]["doc_index"]:
+                        word_dict[terms]["doc_index"][doc_index]['positions'].append(index)
+                        num = word_dict[terms]["doc_index"][doc_index].get('term_freq') + 1
+                        word_dict[terms]["doc_index"][doc_index].update({'term_freq':num})
+                    else:
+                        num = word_dict[terms].get('doc_freq') + 1
+                        word_dict[terms].update({"doc_freq": num})
+                        word_dict[terms]["doc_index"].update({doc_index:doc_dict})
+                else:
+                    word_dict[terms]={"doc_index":{doc_index:doc_dict},"doc_freq": 1}
 
-#B is similar to abstract bool.
-#.A authorList is similar to .A authorlist.
+            term_para = ""
+            author = ""
+            pubDate = ""
+            title = ""
+
+            temp = line.split()
+            doc_index = temp[1]
+        elif ".T" in line:
+            tB = True
+
+word_dict = eval(pprint.pformat(word_dict).lower())
+f1=open('./documents','w+')
+f2=open('./postings','w+')
+for term in word_dict:
+    print(word_dict[term]["doc_index"], file=f2)
+    word_dict[term].pop("doc_index")
+pprint.pprint(word_dict, f1)
+f.close()
+f1.close()
+f2.close()

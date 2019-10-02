@@ -8,7 +8,7 @@ counter = 0
 averageList = []
 word_dict = dict(eval(f1.read()))
 for term in word_dict:
-    word_dict[term]["Doc_Index"] = eval(f2.readline()) #read posting doc as well.
+    word_dict[term]["doc_index"] = eval(f2.readline()) #read posting doc as well.
 
 word_dict = eval(pprint.pformat(word_dict))
 

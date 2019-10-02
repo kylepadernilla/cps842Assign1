@@ -1,0 +1,9 @@
+{'ass': {'Doc_Freq': 1},
+ 'cat': {'Doc_Freq': 2},
+ 'cow': {'Doc_Freq': 1},
+ 'dog': {'Doc_Freq': 2},
+ 'duck': {'Doc_Freq': 1},
+ 'goat': {'Doc_Freq': 1},
+ 'jaguar': {'Doc_Freq': 1},
+ 'monkey': {'Doc_Freq': 1},
+ 'moose': {'Doc_Freq': 2}}

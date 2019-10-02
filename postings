@@ -1,0 +1,9 @@
+{'1': {'Author': 'Harley G', 'Positions': [4], 'Pub_Date': '1997', 'Term_Freq': 1, 'Title': 'animals in theory'}}
+{'1': {'Author': 'Harley G', 'Positions': [1], 'Pub_Date': '1997', 'Term_Freq': 1, 'Title': 'animals in theory'}, '2': {'Author': 'Harley the 4th G', 'Positions': [0], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}
+{'1': {'Author': 'Harley G', 'Positions': [3], 'Pub_Date': '1997', 'Term_Freq': 1, 'Title': 'animals in theory'}}
+{'1': {'Author': 'Harley G', 'Positions': [0, 5, 7], 'Pub_Date': '1997', 'Term_Freq': 3, 'Title': 'animals in theory'}, '2': {'Author': 'Harley the 4th G', 'Positions': [5, 7], 'Pub_Date': '2037', 'Term_Freq': 2, 'Title': 'animals in the wild'}}
+{'2': {'Author': 'Harley the 4th G', 'Positions': [2], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}
+{'2': {'Author': 'Harley the 4th G', 'Positions': [4], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}
+{'2': {'Author': 'Harley the 4th G', 'Positions': [3], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}
+{'2': {'Author': 'Harley the 4th G', 'Positions': [6], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}
+{'1': {'Author': 'Harley G', 'Positions': [2, 6], 'Pub_Date': '1997', 'Term_Freq': 2, 'Title': 'animals in theory'}, '2': {'Author': 'Harley the 4th G', 'Positions': [1], 'Pub_Date': '2037', 'Term_Freq': 1, 'Title': 'animals in the wild'}}

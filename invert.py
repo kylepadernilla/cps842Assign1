@@ -5,21 +5,7 @@ with open('test.txt','r') as f:
     authorBool = False
     punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
 
-    word_dict = dict() #essentially the dictionary, holding every single term.
-        #Term Dictionary (terms):
-            #Document Frequency //Essentially Dictionary.txt *along with terms*
-            #Document Dictionary (doc_ID) //Essentially Postings_Lists.txt
-                #Title
-                #Term Frequency
-                #Positions
-                #Summary (4 words prior first Term position, 5 words after?)
-#word_dict
-#   apple -> new dict()
-#       Doc_Freq
-#       Doc_Dict -> new dict()
-#           1 -> new dict()
-#               Everything
-
+    word_dict = dict() 
     term_para = "" #Holds the entire paragraph (Will be split into words) temporarily
     author = "" #Holds the authors temporarily
     pubDate = "" #Holds the publication date temporarily

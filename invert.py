@@ -3,6 +3,7 @@ with open('test.txt','r') as f:
     abstractBool = False
     pubDateBool = False
     authorBool = False
+    punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
 
     word_dict = dict() #essentially the dictionary, holding every single term.
         #Term Dictionary (terms):
@@ -12,6 +13,12 @@ with open('test.txt','r') as f:
                 #Term Frequency
                 #Positions
                 #Summary (4 words prior first Term position, 5 words after?)
+#word_dict
+#   apple -> new dict()
+#       Doc_Freq
+#       Doc_Dict -> new dict()
+#           1 -> new dict()
+#               Everything
 
     term_para = "" #Holds the entire paragraph (Will be split into words) temporarily
     author = "" #Holds the authors temporarily
@@ -66,13 +73,19 @@ with open('test.txt','r') as f:
 
             else: #Really only happens on a new index.
                 
-                #Begin dictionary filling process here!!!
-                    #
-                    #
-                    #
-                    #
-                    #
-                    #
+                term_list = term_para.split()
+                counter = 0
+                for terms in term_list:
+                    no_punct = ""
+                    for char in terms:
+                        if char not in punctuations:
+                            no_punct = no_punct + char
+                    no_punct = no_punct.lower()
+                    counter = counter + 1
+
+                    
+                    doc_dict = {'Title': title, 'Term_Freq': +1, 'Position' : counter}
+                    term_dict = {doc_index : doc_dict}
 
                 #Resetting the terms for the next document to handle.
                 term_para = "" #Holds the entire paragraph (Will be split into words) temporarily

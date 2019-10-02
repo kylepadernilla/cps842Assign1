@@ -1,20 +1,48 @@
 import pprint
-f = open('test.txt','r')
+from nltk.stem import PorterStemmer 
+from nltk.tokenize import word_tokenize
+f = open('cacm.all','r')
+f3 = open('stopwords.txt','r')
+stop_words = f3.read()
 tB = False  #title
 wB = False  #abstract
 bB = False  #publishing date
 aB = False  #author
 nB = False  #publishing date
+swrB = False #stop word removal
+scB = False #stemming component
 punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
 identifiers = ".W .B .A .N .X "
 
 word_dict = dict()
-
+ps = PorterStemmer()
 term_para = ""
 author = ""
 pubDate = ""
 title = ""
 doc_index = ""
+
+status = True
+while(status):
+    input1 = input("Would you like to remove stop words? (y/n): ")
+    if(input1.lower() == 'y'):
+        swrB = True
+        status = False
+    elif(input1.lower() == 'n'):
+        status = False
+    else:
+        print("Input Valid Response!")
+status = True
+while(status):
+    input1 = input("Would you like to stem words? (y/n): ")
+    if(input1.lower() == 'y'):
+        scB = True
+        status = False
+    elif(input1.lower() == 'n'):
+        status = False
+    else:
+        print("Input Valid Response!")
+
 
 for line in f:
     if(tB):
@@ -65,25 +93,43 @@ for line in f:
             author = author + line.strip()
     else:
         if ".I" in line:
-            #Converts term_para to a readable list
+            #Converts term_para to a readable list no_punct
             no_punct =""
             for char in term_para:
                 if char not in punctuations:
                     no_punct = no_punct + char
             no_punct.lower()
-            for index, terms in enumerate(no_punct.split()):
-                doc_dict = {'title':title, 'author':author, 'pub_date':pubDate, 'term_freq': 1, 'positions':[index]}
-                if terms in word_dict:
-                    if doc_index in word_dict[terms]["doc_index"]:
-                        word_dict[terms]["doc_index"][doc_index]['positions'].append(index)
-                        num = word_dict[terms]["doc_index"][doc_index].get('term_freq') + 1
-                        word_dict[terms]["doc_index"][doc_index].update({'term_freq':num})
-                    else:
-                        num = word_dict[terms].get('doc_freq') + 1
-                        word_dict[terms].update({"doc_freq": num})
-                        word_dict[terms]["doc_index"].update({doc_index:doc_dict})
+            summary = no_punct.split()
+            for index, terms in enumerate(summary):
+                if(scB):
+                    terms = ps.stem(terms)
+                if(swrB):
+                    if terms not in stop_words:
+                        doc_dict = {'title':title, 'author':author, 'pub_date':pubDate, 'term_freq': 1, 'positions':[index]}
+                        if terms in word_dict:
+                            if doc_index in word_dict[terms]["doc_index"]:
+                                word_dict[terms]["doc_index"][doc_index]['positions'].append(index)
+                                num = word_dict[terms]["doc_index"][doc_index].get('term_freq') + 1
+                                word_dict[terms]["doc_index"][doc_index].update({'term_freq':num})
+                            else:
+                                num = word_dict[terms].get('doc_freq') + 1
+                                word_dict[terms].update({"doc_freq": num})
+                                word_dict[terms]["doc_index"].update({doc_index:doc_dict})
+                        else:
+                            word_dict[terms]={"doc_index":{doc_index:doc_dict},"doc_freq": 1}
                 else:
-                    word_dict[terms]={"doc_index":{doc_index:doc_dict},"doc_freq": 1}
+                    doc_dict = {'title':title, 'author':author, 'pub_date':pubDate, 'term_freq': 1, 'positions':[index]}
+                    if terms in word_dict:
+                        if doc_index in word_dict[terms]["doc_index"]:
+                            word_dict[terms]["doc_index"][doc_index]['positions'].append(index)
+                            num = word_dict[terms]["doc_index"][doc_index].get('term_freq') + 1
+                            word_dict[terms]["doc_index"][doc_index].update({'term_freq':num})
+                        else:
+                            num = word_dict[terms].get('doc_freq') + 1
+                            word_dict[terms].update({"doc_freq": num})
+                            word_dict[terms]["doc_index"].update({doc_index:doc_dict})
+                    else:
+                        word_dict[terms]={"doc_index":{doc_index:doc_dict},"doc_freq": 1}
 
             term_para = ""
             author = ""
@@ -105,3 +151,4 @@ pprint.pprint(word_dict, f1)
 f.close()
 f1.close()
 f2.close()
+f3.close()

@@ -11,9 +11,8 @@ aB = False  #author
 nB = False  #publishing date
 swrB = False #stop word removal
 scB = False #stemming component
-punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
-identifiers = ".W .B .A .N .X "
-
+punctuations = '''!()[];:'",<>./?@#$%^&*_~+-`=1234567890'''
+identifiers = ".W .B .A .N .X .K "
 word_dict = dict()
 ps = PorterStemmer()
 term_para = ""
@@ -74,7 +73,7 @@ for line in f:
                 pubDate = "N/A"
                 author = "N/A"
         else:
-            term_para = term_para + line.strip()
+            term_para = term_para + " " + line.strip()
 
     elif(bB):
         if line.strip() in identifiers:
@@ -92,12 +91,14 @@ for line in f:
         else:
             author = author + line.strip()
     else:
-        if ".I" in line:
+        if (".I" == line.split()[0]):
             #Converts term_para to a readable list no_punct
             no_punct =""
             for char in term_para:
                 if char not in punctuations:
                     no_punct = no_punct + char
+                else:
+                    no_punct = no_punct + " "
             no_punct.lower()
             summary = no_punct.split()
             for index, terms in enumerate(summary):

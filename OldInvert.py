@@ -3,8 +3,8 @@ with open('test.txt','r') as f:
     abstractBool = False
     pubDateBool = False
     authorBool = False
-    punctuations = '''!()[];:'",<>./?@#$%^&*_~1234567890'''
-
+    punctuations = '''!()[];:'",<>./?@#$%^&`*_+~1234567890'''
+    
     word_dict = dict() 
     term_para = "" #Holds the entire paragraph (Will be split into words) temporarily
     author = "" #Holds the authors temporarily

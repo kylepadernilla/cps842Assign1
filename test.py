@@ -1,6 +1,3 @@
-#We are going with the assumption that they want the stop word removal
-#and stemming component to be implemented in the program test.
-#e.g. Stemming and removing from the input provided
 import pprint
 import time
 def Average(lst):
@@ -24,7 +21,7 @@ while(counter <= 0):
         pprint.pprint(word_dict[termInput])
         my_list = [i for i in range(1000000)]
         elapsed_time_lc=(time.time()-start)
-        print("Execution time: %d seconds" % elapsed_time_lc)
+        print("Execution time:",elapsed_time_lc,"seconds")
         averageList.append(elapsed_time_lc)
 
     elif(termInput == 'ZZEND'): #if user input is ZZEND.

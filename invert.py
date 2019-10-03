@@ -131,6 +131,7 @@ for line in f:
                             word_dict[terms]["doc_index"].update({doc_index:doc_dict})
                     else:
                         word_dict[terms]={"doc_index":{doc_index:doc_dict},"doc_freq": 1}
+                        
 
             term_para = ""
             author = ""
@@ -143,7 +144,7 @@ for line in f:
             tB = True
 
 word_dict = eval(pprint.pformat(word_dict).lower())
-f1=open('./documents','w+')
+f1=open('./dictionary','w+')
 f2=open('./postings','w+')
 for term in word_dict:
     print(word_dict[term]["doc_index"], file=f2)

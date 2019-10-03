@@ -2,7 +2,7 @@ import pprint
 import time
 def Average(lst):
     return sum(lst) / len(lst)
-f1=open('./documents','r')
+f1=open('./dictionary','r')
 f2=open('./postings','r')
 counter = 0
 averageList = []

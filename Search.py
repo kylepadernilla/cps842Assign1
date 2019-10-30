@@ -1,15 +1,34 @@
-#List of requirements:
-#1. Multiple word search, (no AND, OR, NOT)
-#   - Tokenize and parse through input.
-#2. cosine similarity Formula for query and documents
-#   - Requires Weights (TF * IDF)
-#       - Requires DocID lists(for weights of every word)
-#           > Maybe created during after input of query?
-#               > i.e. creates array for only terms in query, searches for documents with said queries.
-#       - Requires TF (1 + log(F))
-#       - Requires IDF (log(N/DF))
-#   - 
-#3. Top-K retrieval method (maybe) 
-#   > Champion List?
-#
-#4. 
+import pprint
+import time
+def Average(lst):
+    return sum(lst) / len(lst)
+f1=open('./dictionary','r')
+f2=open('./postings','r')
+counter = 0
+averageList = []
+word_dict = dict(eval(f1.read()))
+for term in word_dict:
+    word_dict[term]["doc_index"] = eval(f2.readline()) #read posting doc as well.
+
+word_dict = eval(pprint.pformat(word_dict))
+
+while(counter <= 0):
+    termsInput = input("Please input term: ") #get user input.
+    getTermP = word_dict.get(termsInput) #get term from dictionary with user input.
+    start = time.time()
+
+    if(getTermP): #if term exists in dictionary, print its contents.
+        pprint.pprint(word_dict[termsInput])
+        my_list = [i for i in range(1000000)]
+        elapsed_time_lc=(time.time()-start)
+        print("Execution time:",elapsed_time_lc,"seconds")
+        averageList.append(elapsed_time_lc)
+
+    elif(termsInput == 'ZZEND'): #if user input is ZZEND.
+        print("program terminate.") #program terminates.
+        average = Average(averageList)
+        print("Average execution time:", round(average, 2)) #Calculates average execution time.
+        counter = counter + 1 #adds one to counter to break loop.
+
+    else:
+        print("term does not exist in dictionary. Please try again!") #let user know term does not exist.

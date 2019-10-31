@@ -100,7 +100,7 @@ while(counter <= 0):
                 temp = temp + (query[terms].get('w') * rel[doc]['terms'][terms].get('w'))
                 cossim = temp/(rel[doc].get('mag') * query_mag)
                 rel[doc].update({'cossim':cossim})
-    ui.results(rel,query)
+    ui.results(rel,query,word_dict)
 
 
 

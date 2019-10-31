@@ -7,7 +7,12 @@ List of requirements:
             > Maybe created during after input of query?
                 > i.e. creates array for only terms in query, searches for documents with said queries.
         - Requires TF (1 + log(F))
+            - F = word_dict[term]["doc_index"][doc_index].get("term_freq")
         - Requires IDF (log(N/DF))
-3. Top-K retrieval method (maybe) 
+            - N =  #size of champion list# of retrieved documents (total not ranked)
+                - Sum of all term DFs minus similar doc_index
+                    - First retrieve list of relevantDocs
+            - DF = word_dict[term].get("doc_freq")
+3. Top-K retrieval method (maybe)
     > Champion List?
 4. 

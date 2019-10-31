@@ -1,7 +1,7 @@
 from operator import itemgetter
-term_arr = []
 
 def results(ret, query,word_dict):
+    term_arr = []
     for doc in ret:
         for terms in ret[doc]['terms']:
             if terms in query:

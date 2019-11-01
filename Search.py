@@ -24,34 +24,6 @@ for term in word_dict:
 swB = False
 scB = False
 status = True
-if __name__ == "__main__":
-    while(status):
-        input1 = input("Would you like to stem words? (y/n): ")
-        if(input1.lower() == 'y'):
-            scB = True
-            status = False
-        elif(input1.lower() == 'n'):
-            status = False
-        else:
-            print("Input Valid Response!")
-    status = True
-    while(status):
-        input1 = input("Would you like to REMOVE stop words? (y/n): ")
-        if(input1.lower() == 'y'):
-            scB = True
-            status = False
-        elif(input1.lower() == 'n'):
-            status = False
-        else:
-            print("Input Valid Response!")
-    while(counter <= 0):
-        user_input = input("Please input terms: ") #get user input.
-        if(user_input == "ZZEND"):
-                counter = counter + 1
-        else:
-            search(user_input)
-
-
 def search(termsInput):
     query = dict()
     query_mag = 0
@@ -117,6 +89,35 @@ def search(termsInput):
         ui.results(rel,query,word_dict)
     else:
         return (ui.ranking(rel,query))
+if __name__ == "__main__":
+    while(status):
+        input1 = input("Would you like to stem words? (y/n): ")
+        if(input1.lower() == 'y'):
+            scB = True
+            status = False
+        elif(input1.lower() == 'n'):
+            status = False
+        else:
+            print("Input Valid Response!")
+    status = True
+    while(status):
+        input1 = input("Would you like to REMOVE stop words? (y/n): ")
+        if(input1.lower() == 'y'):
+            scB = True
+            status = False
+        elif(input1.lower() == 'n'):
+            status = False
+        else:
+            print("Input Valid Response!")
+    while(counter <= 0):
+        user_input = input("Please input terms: ") #get user input.
+        if(user_input == "ZZEND"):
+                counter = counter + 1
+        else:
+            search(user_input)
+
+
+
 
 
 

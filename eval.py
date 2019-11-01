@@ -41,7 +41,7 @@ for line in f1:
                     else:
                         no_punct = no_punct + " "
                 no_punct.lower()
-                ret_doc = Search.search(no_punct)
+                ret_doc = Search.search(no_punct, len(rel_query[query_num].get('rel')))
                 user_input = ''
                 if query_num in rel_query:
                     rel_query[query_num]['ret'] = ret_doc
@@ -59,4 +59,11 @@ for line in f1:
 #UP TO THIS POINT, EVERY QUERY HAS A RETRIEVED AND RELATIVE LIST. 
 # rel_query[q]['rel']
 # rel_query[q]['ret']
+# We need:
+# PRECISION RECALL
+# Loop through ret, if in rel -> 
+                                #   relative = relative + 1 
+                                #   num_docs = docs + 1
+                                #   recall = relative / len(rel)
+                                #   precision = relative / num_docs
 

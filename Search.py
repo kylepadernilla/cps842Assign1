@@ -24,7 +24,7 @@ for term in word_dict:
 swB = False
 scB = False
 status = True
-def search(termsInput):
+def search(termsInput, num_rel):
     query = dict()
     query_mag = 0
     rel_docs = []
@@ -88,7 +88,7 @@ def search(termsInput):
     if __name__ == "__main__":
         ui.results(rel,query,word_dict)
     else:
-        return (ui.ranking(rel,query))
+        return (ui.ranking(rel,query, num_rel))
 if __name__ == "__main__":
     while(status):
         input1 = input("Would you like to stem words? (y/n): ")
@@ -114,7 +114,7 @@ if __name__ == "__main__":
         if(user_input == "ZZEND"):
                 counter = counter + 1
         else:
-            search(user_input)
+            search(user_input, 0)
 
 
 

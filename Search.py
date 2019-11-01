@@ -25,28 +25,43 @@ for term in word_dict:
 swB = False
 scB = False
 status = True
-while(status):
-    input1 = input("Would you like to stem words? (y/n): ")
-    if(input1.lower() == 'y'):
-        scB = True
-        status = False
-    elif(input1.lower() == 'n'):
-        status = False
-    else:
-        print("Input Valid Response!")
-while(counter <= 0):
+if __name__ == "__main__":
+    while(status):
+        input1 = input("Would you like to stem words? (y/n): ")
+        if(input1.lower() == 'y'):
+            scB = True
+            status = False
+        elif(input1.lower() == 'n'):
+            status = False
+        else:
+            print("Input Valid Response!")
+    status = True
+    while(status):
+        input1 = input("Would you like to REMOVE stop words? (y/n): ")
+        if(input1.lower() == 'y'):
+            scB = True
+            status = False
+        elif(input1.lower() == 'n'):
+            status = False
+        else:
+            print("Input Valid Response!")
+    while(counter <= 0):
+        user_input = input("Please input terms: ") #get user input.
+        if(user_input == "ZZEND"):
+                counter = counter + 1
+        else:
+            search(user_input)
+
+
+def search(termsInput):
     query = dict()
     query_mag = 0
     rel_docs = []
     rel = dict()
-    termsInput = input("Please input terms: ") #get user input.
     termsInput = termsInput.lower().split()
     for terms in termsInput:
-        #This ends the crap
-        if(terms == "zzend"):
-            counter = counter + 1
         #Prevents boolean operators from happening
-        elif terms in bool_operators:
+        if terms in bool_operators:
             print("No boolean operators allowed.")
             break
         #Stems query if necessary

@@ -1,6 +1,11 @@
+#import Search as search
 f1=open('query.text','r')
 f2=open('qrels.text','r')
 
+#For the query texts.
+
+for line in f1:
+    print(line[0])
 #For the qrels comparison
 rel_query = dict()
 for line in f2:

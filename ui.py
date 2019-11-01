@@ -6,7 +6,21 @@ def results(ret, query,word_dict):
         for terms in ret[doc]['terms']:
             if terms in query:
                 doc_arr = [terms,doc,str(ret[doc].get('cossim')),word_dict[terms]["doc_index"][doc].get('author'),word_dict[terms]["doc_index"][doc].get('title')]
+                n = 0
+                int_doc = int(doc)
+
+                #Loop to check for any the same doc_ids
+                #while n < len(doc_arr):
+                    #if len(term_arr) == 0:
+                        #term_arr.append(doc_arr)
+
+                    #elif int_doc == term_arr[n][1] and len(term_arr) > 0: #unique id
+                        #pass
+
+                    #else:
                 term_arr.append(doc_arr)
+                    #n += 1
+
             sorted_arr = sorted(term_arr, key=itemgetter(2), reverse=True) #sorts Array in descending order.
 
     i = 0

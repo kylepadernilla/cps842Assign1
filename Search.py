@@ -12,7 +12,6 @@ bool_operators = {'and', 'not', 'or'}
 counter = 0
 n = 0
 word_dict = dict(eval(f1.read()))
-query = dict()
 ps = PorterStemmer()
 for term in word_dict:
     word_dict[term]["doc_index"] = eval(f2.readline()) #read posting doc as well.
@@ -62,7 +61,6 @@ def search(termsInput):
     for terms in termsInput:
         #Prevents boolean operators from happening
         if terms in bool_operators:
-            print("No boolean operators allowed.")
             break
         #Stems query if necessary
         else:
@@ -115,7 +113,11 @@ def search(termsInput):
                 temp = temp + (query[terms].get('w') * rel[doc]['terms'][terms].get('w'))
                 cossim = temp/(rel[doc].get('mag') * query_mag)
                 rel[doc].update({'cossim':cossim})
-    ui.results(rel,query,word_dict)
+    if __name__ == "__main__":
+        ui.results(rel,query,word_dict)
+    else:
+        return (ui.ranking(rel,query))
+
 
 
 

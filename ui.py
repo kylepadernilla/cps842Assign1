@@ -21,3 +21,16 @@ def results(ret, query,word_dict):
             + "\nDocument ID: " + sorted_arr[i][doc_id] + "\nRelevant Score: " + sorted_arr[i][rel_no] + "\nRanking Order: " + (str(rank_order)) + "\n")
         i += 1
 
+def ranking(ret, query):
+    term_arr = []
+    ranked = []
+    if ret != {}:
+        for doc in ret:
+            doc_arr = [doc, str(ret[doc].get('cossim))'))]
+            term_arr.append(doc_arr)
+            sorted_arr = sorted(term_arr, key=itemgetter(1), reverse=True)
+        i = 0
+        while i < len(sorted_arr) and i <= 5:
+            ranked.append(sorted_arr[i][0])
+            i += 1
+    return ranked

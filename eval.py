@@ -6,6 +6,9 @@ separators = ".A .N"
 punctuations = '''!()[];:'",<>./?@#$%^&*_~+-`=1234567890'''
 #For the qrels comparison
 rel_query = dict()
+mapArr = []
+repArr = []
+
 for line in f2:
     pos1 = 0
     pos2 = 0
@@ -56,14 +59,22 @@ for line in f1:
             elif line_parts[0] == '.W':
                 uiB = True
 
-#UP TO THIS POINT, EVERY QUERY HAS A RETRIEVED AND RELATIVE LIST. 
-# rel_query[q]['rel']
-# rel_query[q]['ret']
-# We need:
-# PRECISION RECALL
-# Loop through ret, if in rel -> 
-                                #   relative = relative + 1 
-                                #   num_docs = docs + 1
-                                #   recall = relative / len(rel)
-                                #   precision = relative / num_docs
+#UP TO THIS POINT, EVERY QUERY HAS A RETRIEVED AND RELATIVE LIST.
 
+for ret in rel_query[q]['ret']:
+    if ret in rel_query[q]['rel']:
+        relative = relative + 1
+        num_docs = docs + 1
+        recall = relative / len(rel)
+        precision = relative / num_docs
+        repArr.append(recall)
+        mapArr.append(precision)
+
+def Average(lst):
+    return sum(lst) / len(lst)
+
+averageMap = Average(mapArr)
+print("average MAP Values: " + round(averageMap,2))
+
+averageR = Average(repArr)
+print("average R-Precision Values: " + round(averageR,2))

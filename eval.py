@@ -44,11 +44,12 @@ for line in f1:
                     else:
                         no_punct = no_punct + " "
                 no_punct.lower()
-                ret_doc = Search.search(no_punct, len(rel_query[query_num].get('rel')))
                 user_input = ''
                 if query_num in rel_query:
+                    ret_doc = Search.search(no_punct, len(rel_query[query_num].get('rel')))
                     rel_query[query_num]['ret'] = ret_doc
                 else:
+                    ret_doc = Search.search(no_punct, 0)
                     rel_query[query_num] = {'rel':[],'ret': ret_doc}
         if line_parts != []:
             if line_parts[0] == '.I':

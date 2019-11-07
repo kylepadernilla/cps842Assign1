@@ -8,8 +8,6 @@ punctuations = '''!()[];:'",<>./?@#$%^&*_~+-`=1234567890'''
 rel_query = dict()
 mapArr = []
 repArr = []
-queryArr = []
-relative = 0
 
 for line in f2:
     pos1 = 0
@@ -65,14 +63,31 @@ for line in f1:
 #UP TO THIS POINT, EVERY QUERY HAS A RETRIEVED AND RELATIVE LIST.
 
 for q in rel_query:
+    rel_doc = 0
+    ret_doc = 0
+    avg_prec = 0
+    relative = len(rel_query[q]['rel'])
+    num_docs = len(rel_query[q]['ret'])
     for ret in rel_query[q]['ret']:
+        ret_doc += 1
         if ret in rel_query[q]['rel']:
-            relative = len(rel_query[q]) + 1
-            num_docs = len(rel_query) + 1
-            recall = relative / len(rel_query[q])
-            precision = relative / num_docs
-            repArr.append(recall)
-            mapArr.append(precision)
+            rel_doc += 1
+
+
+        precision = rel_doc / ret_doc
+        avg_prec = precision + avg_prec
+
+    if relative == 0:
+        r_precision = 1
+    else:
+        r_precision = rel_doc / relative
+
+    if num_docs == 0:
+        avg_prec = 0
+    else:
+        avg_prec = avg_prec / num_docs
+    mapArr.append(avg_prec)
+    repArr.append(r_precision)
 
 def Average(lst):
     return sum(lst) / len(lst)

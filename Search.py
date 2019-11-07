@@ -18,7 +18,7 @@ for term in word_dict:
     doc_index = word_dict[term]["doc_index"].keys()
     for keys in doc_index:
         if(int(keys) > n):
-            n = int(keys) + 1 ##############DONT FORGET THIS AINT RIGHT
+            n = int(keys) + 1
 
 #word_dict = eval(pprint.pformat(word_dict))
 swB = False

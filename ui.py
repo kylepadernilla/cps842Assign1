@@ -18,7 +18,7 @@ def results(ret, query,word_dict):
         doc_title = 4
         rank_order = int(i) +1
         print("Term: " + sorted_arr[i][0] + "\nDoc Title: " + sorted_arr[i][doc_title] +  "\nAuthor: " + sorted_arr[i][author_id]
-            + "\nDocument ID: " + sorted_arr[i][doc_id] + "\nRelevant Score: " + sorted_arr[i][rel_no] + "\nRanking Order: " + (str(rank_order)) + "\n")
+            + "\nDocument ID: " + sorted_arr[i][doc_id] + "\nRelevance Score: " + sorted_arr[i][rel_no] + "\nRanking Order: " + (str(rank_order)) + "\n")
         i += 1
 
 def ranking(ret, query, num):

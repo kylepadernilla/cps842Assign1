@@ -114,7 +114,7 @@ if __name__ == "__main__":
         if(user_input == "ZZEND"):
                 counter = counter + 1
         else:
-            search(user_input, 0)
+            search(user_input, 0, 0.5, 0.5)
 
 
 

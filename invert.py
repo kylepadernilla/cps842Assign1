@@ -4,13 +4,14 @@ from nltk.tokenize import word_tokenize
 f = open('cacm.all','r')
 f3 = open('stopwords.txt','r')
 stop_words = f3.read()
-tB = False  #title
-wB = False  #abstract
-bB = False  #publishing date
-aB = False  #author
-nB = False  #publishing date
-swrB = False #stop word removal
-scB = False #stemming component
+titleBool = False  #title
+abstractBool = False  #abstract
+pubdateBool = False  #publishing date
+authorBool = False  #author
+stopwordBool = False #stop word removal
+stemBool = False #stemming component
+linksBool = False #Page links
+linksArr = []
 punctuations = '''!()[];:'",<>./?@#$%^&*_~+-`=1234567890'''
 identifiers = ".W .B .A .N .X .K "
 word_dict = dict()
@@ -25,7 +26,7 @@ status = True
 while(status):
     input1 = input("Would you like to remove stop words? (y/n): ")
     if(input1.lower() == 'y'):
-        swrB = True
+        stopwordBool = True
         status = False
     elif(input1.lower() == 'n'):
         status = False
@@ -35,7 +36,7 @@ status = True
 while(status):
     input1 = input("Would you like to stem words? (y/n): ")
     if(input1.lower() == 'y'):
-        scB = True
+        stemBool = True
         status = False
     elif(input1.lower() == 'n'):
         status = False
@@ -44,16 +45,16 @@ while(status):
 
 
 for line in f:
-    if(tB):
+    if(titleBool):
         if line.strip() in identifiers:
-            tB = False
+            titleBool = False
             term_para = title
             if (line.strip() == ".W"):
-                wB = True
+                abstractBool = True
             elif(line.strip() == ".B"):
-                bB = True
+                pubdateBool = True
             elif(line.strip() == ".A"):
-                aB = True
+                authorBool = True
                 pubDate = "N/A"
             else:
                 pubDate = "N/A"
@@ -61,13 +62,13 @@ for line in f:
         else:
             title = title + line.strip()
 
-    elif(wB):
+    elif(abstractBool):
         if line.strip() in identifiers:
-            wB = False
+            abstractBool = False
             if(line.strip() == ".B"):
-                bB = True
+                pubdateBool = True
             elif(line.strip() == ".A"):
-                aB = True
+                authorBool = True
                 pubDate = "N/A"
             else:
                 pubDate = "N/A"
@@ -75,21 +76,27 @@ for line in f:
         else:
             term_para = term_para + " " + line.strip()
 
-    elif(bB):
+    elif(pubdateBool):
         if line.strip() in identifiers:
-            bB = False
+            pubdateBool = False
             if(line.strip() == ".A"):
-                aB = True
+                authorBool = True
             else:
                 author = "N/A"
         else:
             pubDate = pubDate + line.strip()
 
-    elif(aB):
+    elif(authorBool):
         if line.strip() in identifiers:
-            aB = False
+            authorBool = False
         else:
             author = author + line.strip()
+    elif(linksBool):
+        if line.split()[0] == ".I":
+            linksBool = False
+        else:
+            if [line.split()[0],line.split()[2]] not in linksArr:
+                linksArr.append([line.split()[0],line.split()[2]])
     else:
         if (".I" == line.split()[0]):
             #Converts term_para to a readable list no_punct
@@ -102,9 +109,9 @@ for line in f:
             no_punct.lower()
             summary = no_punct.split()
             for index, terms in enumerate(summary):
-                if(scB):
+                if(stemBool):
                     terms = ps.stem(terms)
-                if(swrB):
+                if(stopwordBool):
                     if terms not in stop_words:
                         doc_dict = {'title':title, 'author':author, 'pub_date':pubDate, 'term_freq': 1, 'positions':[index]}
                         if terms in word_dict:
@@ -141,16 +148,21 @@ for line in f:
             temp = line.split()
             doc_index = temp[1]
         elif ".T" in line:
-            tB = True
+            titleBool = True
+        elif ".X" in line:
+            linksBool = True
 
 word_dict = eval(pprint.pformat(word_dict).lower())
 f1=open('./dictionary','w+')
 f2=open('./postings','w+')
+f4=open('./links','w+')
 for term in word_dict:
     print(word_dict[term]["doc_index"], file=f2)
     word_dict[term].pop("doc_index")
 pprint.pprint(word_dict, f1)
+pprint.pprint(linksArr, f4)
 f.close()
 f1.close()
 f2.close()
 f3.close()
+f4.close()

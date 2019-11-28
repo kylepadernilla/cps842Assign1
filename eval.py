@@ -30,6 +30,18 @@ for line in f2:
 query_num = ''
 user_input = ''
 uiB = False
+status = True
+w1 = 0.5
+w2 = 0.5
+while(status):
+    w1 = input("Please input cossim weight(e.g 0.5):")
+    if float(w1) >= 0 and float(w1) <= 1:
+        status = False
+status = True
+while(status):
+    w2 = input('please input pagerank weight(e.g 0.5):')
+    if float(w2) >= 0 and float(w2) <= 1:
+        status = False
 for line in f1:
         line_parts = line.split()
         if uiB:
@@ -46,10 +58,10 @@ for line in f1:
                 no_punct.lower()
                 user_input = ''
                 if query_num in rel_query:
-                    ret_doc = Search.search(no_punct, len(rel_query[query_num].get('rel')))
+                    ret_doc = Search.search(no_punct, len(rel_query[query_num].get('rel')), w1, w2)
                     rel_query[query_num]['ret'] = ret_doc
                 else:
-                    ret_doc = Search.search(no_punct, 0)
+                    ret_doc = Search.search(no_punct, 0, w1, w2)
                     rel_query[query_num] = {'rel':[],'ret': ret_doc}
         if line_parts != []:
             if line_parts[0] == '.I':

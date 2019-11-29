@@ -42,6 +42,8 @@ while(status):
     w2 = input('please input pagerank weight(e.g 0.5):')
     if float(w2) >= 0 and float(w2) <= 1:
         status = False
+    w1 = float(w1)
+    w2 = float(w2)
 for line in f1:
         line_parts = line.split()
         if uiB:
@@ -84,16 +86,13 @@ for q in rel_query:
         ret_doc += 1
         if ret in rel_query[q]['rel']:
             rel_doc += 1
-
-
         precision = rel_doc / ret_doc
         avg_prec = precision + avg_prec
 
     if relative == 0:
-        r_precision = 1
+        continue
     else:
         r_precision = rel_doc / relative
-
     if num_docs == 0:
         avg_prec = 0
     else:
@@ -105,7 +104,7 @@ def Average(lst):
     return sum(lst) / len(lst)
 
 averageMap = Average(mapArr)
-print("average MAP Values: " + str(round(averageMap,2)))
+print("average MAP Values: " + str(round(averageMap,10)))
 
 averageR = Average(repArr)
-print("average R-Precision Values: " + str(round(averageR,2)))
+print("average R-Precision Values: " + str(round(averageR,10)))

@@ -47,7 +47,7 @@ def results(ret, query,word_dict):
         combined_score = 6
         rank_order = int(i) +1
         print("Term: " + sorted_arr[i][0] + "\nDoc Title: " + sorted_arr[i][doc_title] +  "\nAuthor: " + sorted_arr[i][author_id]
-            + "\nDocument ID: " + sorted_arr[i][doc_id] + "\nRelevance Score: " + sorted_arr[i][rel_no] + "\nPageRank Score: " + sorted_arr[i][pr_score] + "\nCombined Score: " + sorted_arr[i][combined_score] + "\nRanking Order: " + (str(rank_order)) + "\n")
+            + "\nDocument ID: " + sorted_arr[i][doc_id] + "\nRelevance Score: " + sorted_arr[i][rel_no] + "\nPageRank Score: " + str(sorted_arr[i][pr_score]) + "\nCombined Score: " + str(sorted_arr[i][combined_score]) + "\nRanking Order: " + (str(rank_order)) + "\n")
         i += 1
     f.close()
 def ranking(ret, query, num, w1, w2):
